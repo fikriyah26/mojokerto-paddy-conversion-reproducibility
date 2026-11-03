@@ -19,6 +19,9 @@ var AREA_CRS = 'EPSG:32749'
 var SCALE = 10
 var EXPECTED_T60_HA = 323.33406072288363
 var EXPECTED_NONZERO = 230
+var EXPECTED_ADMIN_FEATURES = 304
+var EXPECTED_DISTRICTS = 18
+var EXPECTED_BOUNDARY_AREA_KM2 = 984.2492023190476
 
 var importedTable = (typeof table !== 'undefined') ? ee.FeatureCollection(table) : null
 var admin = ADMIN_ASSET ? ee.FeatureCollection(ADMIN_ASSET) : importedTable
@@ -34,6 +37,13 @@ if (!admin) {
     return f.set('verify_key', k)
   })
   print('Polygon features', admin.size())
+  print('Expected features', EXPECTED_ADMIN_FEATURES)
+  print('Distinct kecamatan', admin.aggregate_array(DISTRICT_FIELD).distinct().size())
+  print('Expected kecamatan', EXPECTED_DISTRICTS)
+  print('Boundary source field frequencies', admin.aggregate_histogram('SUMBER'))
+  print('Input boundary area in km2 (Earth Engine geometry)', admin.geometry().area(1).divide(1e6))
+  print('Reference offline boundary area km2', EXPECTED_BOUNDARY_AREA_KM2)
+  print('Note: GEE geometry area can differ slightly from planar source area')
   print('Features with complete names', complete.size())
   print('Distinct district-village keys', keyed.distinct(['verify_key']).size())
   print('First feature, inspect attributes', admin.first())
