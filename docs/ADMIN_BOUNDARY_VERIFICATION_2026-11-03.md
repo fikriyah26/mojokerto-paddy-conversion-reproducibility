@@ -67,3 +67,9 @@ Do not publicly redistribute original boundary geometry until its data reuse ter
 **Offline boundary verification: PASS.**
 
 **Live GEE asset ingestion and raster reconstruction: NOT TESTED.**
+
+## GEE Code Editor confirmation reported by the author, 3 November 2026
+
+The author imported `projects/project-fikriyah/assets/Mojokerto_Admin_RTRW_304_for_GEE` into the Earth Engine project and reported the following live Console results: 304 administrative features, 18 distinct districts, 304 distinct district-village keys, and attributes `SUMBER`, `KECAMATAN`, `AREA_KM2`, `KABUPATEN`, `DESAKEL`, `PROVINSI`, `system:index`. The user supplied a screenshot of the successfully ingested table asset.
+
+**Status update:** administrative table ingestion and key/count verification PASS on author-provided GEE evidence. This does not validate the Stage 3 raster asset or reproduce the original satellite classification. The next read-only step is `gee/01_inventory_stage3_assets_READ_ONLY.js`.
