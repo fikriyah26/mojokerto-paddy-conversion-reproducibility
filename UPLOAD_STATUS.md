@@ -27,3 +27,13 @@ The historical T60 area matches the archived Stage 6 summary to floating-point t
 - Stage 8 points are unlabelled and are not valid omission-error results.
 
 The repository remains **Private** until these checks are addressed.
+
+## GEE static verification 3 November 2026
+
+A read-only GEE diagnostic, source configuration tests, and an audit report have been added:
+
+- `gee/00_preflight_assets_DIAGNOSTIC.js`
+- `tests/verify_gee_static.cjs`
+- `docs/GEE_VERIFICATION_AUDIT_2026-11-03.md`
+
+The historical Stage 6 and Stage 7 numerical comparisons pass offline verification. No Earth Engine asset was opened or rerun through the authenticated server. The original Stage 3 and Stage 6 assets and the historical raster pixel grid are not yet verified. The reconstructed GEE script must not be represented as an independently reproduced historical execution.
