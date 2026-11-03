@@ -1,6 +1,6 @@
 /*
 Read-only Stage 0 diagnostic for Kabupaten Mojokerto.
-Open in Google Earth Engine Code Editor after selecting the research Cloud project.
+Open in Google Earth Engine Code Editor with access to the original legacy research assets.
 Does not export, overwrite, or claim historical re-execution.
 
 Set ADMIN_ASSET or import the historically used FeatureCollection as table.
@@ -8,7 +8,7 @@ Set STAGE3_ASSET only after checking the original image in the Asset Manager.
 Set LOCKED_STAGE6_ASSET only if the original archived raster is independently verified.
 */
 var ADMIN_ASSET = ''
-var STAGE3_ASSET = ''
+var STAGE3_ASSET = 'users/fikriiyah26/Mojokerto_Stage3_ConversionMask'
 var LOCKED_STAGE6_ASSET = ''
 var CHECK_STAGE3 = false
 var CHECK_LOCKED_PIXELS = false
