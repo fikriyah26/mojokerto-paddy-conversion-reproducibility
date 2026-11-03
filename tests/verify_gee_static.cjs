@@ -22,6 +22,8 @@ for (const entry of [
   'var PATCH_EIGHT_CONNECTED = true',
   "var AREA_CRS = 'EPSG:32749'"
 ]) assert.ok(source.includes(entry), 'Missing historical setting: ' + entry)
+assert.ok(source.includes("users/fikriiyah26/Mojokerto_Stage3_ConversionMask"), 'Wrong historical Stage 3 asset path')
+assert.ok(!source.includes("users/fikriyah26/Mojokerto_Stage3_ConversionMask"), 'Legacy username typo')
 for(let s=1; s<=6; s++) assert.ok(source.includes('ACTIVE_STAGE === ' + s))
 const diagnostic = fs.readFileSync(diagnosticPath,'utf8')
 assert.ok(!diagnostic.includes('Export.image.toAsset'), 'Diagnostic should not overwrite assets')
