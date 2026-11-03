@@ -22,7 +22,7 @@ var ACTIVE_STAGE = 1
 
 // === Configure these values in your Earth Engine account ===
 var ADMIN_ASSET = ''
-var STAGE3_ASSET = 'users/fikriyah26/Mojokerto_Stage3_ConversionMask'
+var STAGE3_ASSET = 'users/fikriiyah26/Mojokerto_Stage3_ConversionMask'
 var STAGE3_NEW_ASSET = ''  // Set to a NEW asset ID if exporting a rebuilt Stage 3
 var STAGE6_NEW_ASSET = ''  // Optional, never overwrite a locked asset
 var EXPORT_FOLDER = 'Mojokerto_GEE_Research'
