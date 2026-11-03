@@ -1,38 +1,49 @@
 /*
-Tahap berikutnya: inventaris aset Stage 3
-Read-only. Tidak membuat Tasks atau Export.
-Proyek aktif: project-fikriyah
+Verifikasi aset historis Stage 3, Kabupaten Mojokerto.
+Sumber analisis asli menggunakan ruang legacy users/fikriiyah26.
+READ-ONLY: tidak ada Export, Task baru, atau penimpaan aset.
+Impor batas administrasi sebagai 'table' bila ingin melihat lokasi.
 */
-var projectRoot = 'projects/project-fikriyah/assets'
-var adminAsset = projectRoot + '/Mojokerto_Admin_RTRW_304_for_GEE'
-var legacyStage3 = 'users/fikriyah26/Mojokerto_Stage3_ConversionMask'
 
-var rootInfo = ee.data.listAssets(projectRoot)
-print('DAFTAR ASET CLOUD PROJECT', rootInfo)
+var STAGE3_ASSET = 'users/fikriiyah26/Mojokerto_Stage3_ConversionMask'
+var stage3 = ee.Image(STAGE3_ASSET)
 
-var sourceInfo = ee.data.getAsset(adminAsset)
-print('ASET ADMIN YANG SUDAH DIPERIKSA', sourceInfo.name, sourceInfo.type)
-
-var assets = rootInfo.assets || []
-var images = assets.filter(function(a) {
-  return a.type === 'IMAGE'
-})
-print('JUMLAH IMAGE ASSET DI FOLDER UTAMA', images.length)
-print('DAFTAR IMAGE ASSET', images)
-
-var stage3Candidates = assets.filter(function(a) {
-  return /stage.?3|conversion|mask/i.test(a.name || '')
-})
-print('KANDIDAT ASET STAGE 3 PADA ROOT', stage3Candidates)
+print('ID ASET HISTORIS STAGE 3', STAGE3_ASSET)
+print('SEMUA BAND STAGE 3', stage3.bandNames())
+print('JUMLAH BAND', stage3.bandNames().size())
+print('BAND WAJIB T50, T60, T70',
+  ['conv_T50', 'conv_T60', 'conv_T70'])
+print('BAND YANG BELUM ADA',
+  ee.List(['conv_T50', 'conv_T60', 'conv_T70'])
+    .removeAll(stage3.bandNames()))
+print('PROYEKSI BAND PERTAMA', stage3.select(0).projection())
+print('SKALA NOMINAL BAND PERTAMA (m)',
+  stage3.select(0).projection().nominalScale())
 
 try {
-  var oldAsset = ee.data.getAsset(legacyStage3)
-  print('ASET LEGACY TERCATAT', oldAsset.name, oldAsset.type)
-  if (oldAsset.type === 'IMAGE') {
-    print('BAND ASET LEGACY', ee.Image(legacyStage3).bandNames())
-  }
+  var metadata = ee.data.getAsset(STAGE3_ASSET)
+  print('TIPE ASET HISTORIS', metadata.type)
+  print('METADATA ASET', metadata)
 } catch (error) {
-  print('ASET LEGACY TIDAK DAPAT DIAKSES', String(error))
+  print('METADATA TIDAK TERBACA',
+    String(error))
 }
-print('BAND YANG DIPERLUKAN', ['conv_T50', 'conv_T60', 'conv_T70'])
-print('CATATAN', 'Jika hanya muncul batas administrasi, Stage 3 belum tersedia sebagai aset pada project root')
+
+if (typeof table !== 'undefined') {
+  var admin = ee.FeatureCollection(table)
+  print('JUMLAH UNIT ADMINISTRASI', admin.size())
+  Map.centerObject(admin, 10)
+  Map.addLayer(admin.style({
+    color: 'ffffff', fillColor: '00000000', width: 1
+  }), {}, 'Batas administrasi 304 unit', false)
+  Map.addLayer(
+    stage3.select('conv_T60').selfMask().clip(admin.geometry()),
+    {palette: ['f97316']},
+    'Stage 3 T60 sebelum filter patch', false
+  )
+} else {
+  print('OPSIONAL: impor batas administrasi sebagai table')
+}
+
+print('CATATAN: Stage 3 adalah kandidat sebelum filter patch 5 piksel.')
+print('Angka pembanding 323,3341 ha berlaku untuk keluaran akhir Stage 6.')
