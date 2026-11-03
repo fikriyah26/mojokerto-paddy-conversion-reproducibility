@@ -27,7 +27,7 @@ Audit date: 3 November 2026.
 ## Blockers and methodological cautions
 
 1. The original GEE Cloud project and verified administrator asset ID have not been established. The reconstructed source expects imported `table` when `ADMIN_ASSET` is blank.
-2. The configured Stage 3 path, `users/fikriyah26/Mojokerto_Stage3_ConversionMask`, is not proof that an accessible asset exists. Verify the actual asset ID in the GEE Assets panel.
+2. The author confirmed the historical Stage 3 asset ID as `users/fikriiyah26/Mojokerto_Stage3_ConversionMask`. The legacy username contains two `i` letters after `fikr`. This source location is distinct from the newly ingested administrative table. Asset readability and raster contents must still be verified using GEE Console.
 3. The Stage 3 exclusion of baseline built-up, and parts of annual observation and masking logic, were reconstructed rather than copied from the original script. Code resemblance or a matching aggregate cannot establish complete equivalence.
 4. The original administrative source comprised 308 polygon-part records harmonized to 304 analytical units. Both keys and geometry should be checked.
 5. Sampling pools for Stage 5 reconstructed QA may yield different points from the 60 historically interpreted candidates. The reconstructed sample is not a replacement for the archived references.
@@ -58,3 +58,9 @@ The manuscript reviewer comment on public reproducibility should remain **Sebagi
 The author imported `projects/project-fikriyah/assets/Mojokerto_Admin_RTRW_304_for_GEE` into the Earth Engine project and reported the following live Console results: 304 administrative features, 18 distinct districts, 304 distinct district-village keys, and attributes `SUMBER`, `KECAMATAN`, `AREA_KM2`, `KABUPATEN`, `DESAKEL`, `PROVINSI`, `system:index`. The user supplied a screenshot of the successfully ingested table asset.
 
 **Status update:** administrative table ingestion and key/count verification PASS on author-provided GEE evidence. This does not validate the Stage 3 raster asset or reproduce the original satellite classification. The next read-only step is `gee/01_inventory_stage3_assets_READ_ONLY.js`.
+
+## Legacy asset provenance correction (author confirmation, 3 November 2026)
+
+The original analysis used legacy Earth Engine assets under `users/fikriiyah26`, rather than the later Cloud Assets namespace. All reconstructed source references and the Stage 3 inventory script have been corrected to use `users/fikriiyah26/Mojokerto_Stage3_ConversionMask`.
+
+The independent administrative-boundary verification in the new project remains valid as a separate step. The Cloud Assets table imported recently is not evidence that the original Stage 3 imagery was stored in that project. The read-only asset inspection is `gee/01_inventory_stage3_assets_READ_ONLY.js`. No live Stage 3 image content or band names have been reported yet.
