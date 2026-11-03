@@ -11,6 +11,7 @@ var threshold = 5
 var sourceCRS = 'EPSG:32749'
 var targetAreaHa = 323.33406072288363
 var targetPositiveUnits = 230
+var RUN_UNIT_CHECK = false // Set true after area check, can be more costly
 
 // The archival source can contain 308 polygon pieces for 304 logical units.
 var keyedAdmin = admin.map(function (f) {
@@ -60,6 +61,8 @@ print('Difference, reconstructed minus historical (ha)',
 
 // With multipart polygons, count distinct keys after computing positive area.
 // Do not count 308 polygon parts as 308 villages.
+// Optional second phase, because 308 polygon reductions can be costly.
+if (RUN_UNIT_CHECK) {
 var byPolygon = afterArea.reduceRegions({
   collection: keyedAdmin,
   reducer: ee.Reducer.sum(),
@@ -74,6 +77,9 @@ print('Positive distinct administrative units', distinctPositives.size())
 print('Historical positive distinct units', targetPositiveUnits)
 print('Difference in number of positive distinct units',
   distinctPositives.size().subtract(targetPositiveUnits))
+} else {
+  print('Positive-unit test deferred: set RUN_UNIT_CHECK = true after area comparison')
+}
 
 print('Stage 3 T60 raster CRS', stage3.select('conv_T60').projection().crs())
 print('Stage 3 T60 transform', stage3.select('conv_T60').projection().transform())
