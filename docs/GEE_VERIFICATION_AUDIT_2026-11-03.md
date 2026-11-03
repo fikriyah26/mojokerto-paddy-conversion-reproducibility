@@ -64,3 +64,21 @@ The author imported `projects/project-fikriyah/assets/Mojokerto_Admin_RTRW_304_f
 The original analysis used legacy Earth Engine assets under `users/fikriiyah26`, rather than the later Cloud Assets namespace. All reconstructed source references and the Stage 3 inventory script have been corrected to use `users/fikriiyah26/Mojokerto_Stage3_ConversionMask`.
 
 The independent administrative-boundary verification in the new project remains valid as a separate step. The Cloud Assets table imported recently is not evidence that the original Stage 3 imagery was stored in that project. The read-only asset inspection is `gee/01_inventory_stage3_assets_READ_ONLY.js`. No live Stage 3 image content or band names have been reported yet.
+
+## Live historical Stage 3 confirmation supplied by author (3 November 2026)
+
+The author ran `gee/01_inventory_stage3_assets_READ_ONLY.js` in GEE Code Editor and reported:
+
+- Original historical asset ID: `users/fikriiyah26/Mojokerto_Stage3_ConversionMask`
+- Accessible asset type: `Image`
+- Seven bands in the Image
+- All three expected bands are present: `conv_T50`, `conv_T60`, `conv_T70`
+- Nominal scale of the first band: 10 metres
+- Projection object printed, but its complete CRS and affine transform were not supplied
+- The imported administrative table in this run contained 308 polygon features
+
+The 308 feature count is consistent with the original multipart shapefile (308 polygon parts for 304 district-village units), but GEE distinct-key count was not printed in this Stage 3 inventory run. A previous Code Editor verification of the separately imported dissolved boundary showed 304 features, 18 districts and 304 unique district-village units. The two table imports should not be conflated.
+
+**Status: historical Stage 3 asset readability and expected band presence PASS.** Raster content, patch filtering, final T60 area and distinct positive units have **not** yet been reproduced by this live check.
+
+The next read-only step is `gee/02_verify_T60_patch5_from_historical_stage3_READ_ONLY.js`. It first computes T60 after the five-pixel eight-connected component rule. An optional second phase counts unique positive district-village keys after polygon reduction. The second phase starts disabled to avoid a costly 308-feature reduction before the area check.
