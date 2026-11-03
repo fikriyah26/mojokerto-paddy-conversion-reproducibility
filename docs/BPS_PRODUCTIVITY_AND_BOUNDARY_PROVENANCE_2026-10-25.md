@@ -1,0 +1,23 @@
+# BPS productivity and administrative-boundary provenance audit (25 October 2026)
+
+## Paddy production parameter
+
+- BPS East Java, **Luas Panen, Produktivitas, dan Produksi Padi Menurut Kabupaten/Kota di Provinsi Jawa Timur, 2025**: Kabupaten Mojokerto has harvested area **51,751 ha**, GKG production **312,409 metric tons**, and reported productivity **60.37 quintals GKG per harvested ha** (**6.037 t GKG per harvested ha**). Model input rounded to **6.04 t GKG per harvested ha** is consistent.
+- Official BPS statistics page: https://jatim.bps.go.id/id/statistics-table/3/WmpaNk1YbGFjR0pOUjBKYWFIQlBSU3MwVHpOVWR6MDkjMw%3D%3D/luas-panen--produktivitas--dan-produksi-padi-menurut-kabupaten-kota-di-provinsi-jawa-timur.html
+- All **18** BPS *Kecamatan Dalam Angka 2025* PDF publications in connected Google Drive UI/BPS were inspected. Their Section 5.2.2 supplies **2024 paddy harvested area by village**, and Section 5.2.3 supplies **2024 physical wetland area by village**. These publications do **not** provide a numerical table of GKG production or GKG yield for each subdistrict. The term GKG occurs in the general technical notes, not as numerical subdistrict production values.
+- Consequently, the manuscript's 2025 regency-level GKG yield is verified. A sensitivity model using spatially varying 18-subdistrict GKG yields is **not empirically estimable from these publications**. Do not infer yield from a harvested-area/wetland-area ratio, which is cropping intensity, nor combine 2024 harvested area from different measurement frameworks directly with the 2025 regency total.
+
+## Administrative boundaries
+
+- Working source identified by the study author: **RTRW Kabupaten Mojokerto spatial-planning dataset**. Official legal spatial-plan reference: **Peraturan Daerah Kabupaten Mojokerto Nomor 9 Tahun 2012 tentang RTRW Kabupaten Mojokerto Tahun 2012–2032**. Official text: https://siruang.mojokertokab.go.id/produkhukum/Perda%20Nomor%209%20RTRW%20Kabupaten%20Mojokerto%20Tahun%202012-2032.pdf
+- Connected UI folder includes the stored boundary archive **`admin_kab_mojokerto.zip`**. Its DBF attribute **`SUMBER`** is uniformly **`PPBW BIG Tahun 2021`**. Both provenance statements should be recorded rather than treating the RTRW workflow and original boundary attribution as mutually exclusive.
+- The source SHP has **308 polygon records** and EPSG:32749. There are **304 unique `(KECAMATAN, DESAKEL)` units**. Four villages have two source polygons each: **Mojorejo, Kecamatan Jetis; Ngareskidul, Kecamatan Gedeg; Seduri, Kecamatan Mojosari; Kemasantani, Kecamatan Gondang**. Dissolving polygons by district and village yields 304 administrative units.
+- A direct comparison against `Mojokerto_304.shp` in the historical GeoDa archive found the **same 304 `(district, village)` keys**, **identical union geometries by key**, and **identical study-area extent and total polygon area** (about **984.249 km²** in the dataset geometry). The polygons' sum is not necessarily an authoritative cadastral or statistical area.
+- Source and geometry fit are verified for model purposes. **Rights to redistribute the underlying polygon files as an open-source GitHub dataset have not been verified**; therefore this repository distributes only the derived numerical 304-unit CSV and methodology.
+- The term "PPBW BIG Tahun 2021" is transcribed from the source file metadata. The exact expansion of PPBW and the specific BIG release ID were not independently verified, and should not be invented.
+
+## Suggested journal wording
+
+> Village and urban-village boundary geometries were obtained from the spatial dataset used for the Mojokerto Regency Spatial Plan (RTRW). The source shapefile attributes its polygons to “PPBW BIG Tahun 2021”. Four split village records were dissolved by matching subdistrict and village names, yielding 304 administrative units for analysis. The processed study boundaries were checked against the archival 304-unit spatial dataset.
+
+> Regency-level statistics for 2025 reported 51,751 ha of harvested paddy area, 312,409 metric tons of milled dry grain, and a productivity of 60.37 quintals GKG per harvested hectare. Accordingly, the model applied a rounded yield of 6.04 metric tons GKG per harvested hectare. The 18 reviewed subdistrict BPS publications report village harvested area and physical paddy fields for 2024 but do not provide directly comparable subdistrict GKG yields.
