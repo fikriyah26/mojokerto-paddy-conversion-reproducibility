@@ -82,3 +82,24 @@ The 308 feature count is consistent with the original multipart shapefile (308 p
 **Status: historical Stage 3 asset readability and expected band presence PASS.** Raster content, patch filtering, final T60 area and distinct positive units have **not** yet been reproduced by this live check.
 
 The next read-only step is `gee/02_verify_T60_patch5_from_historical_stage3_READ_ONLY.js`. It first computes T60 after the five-pixel eight-connected component rule. An optional second phase counts unique positive district-village keys after polygon reduction. The second phase starts disabled to avoid a costly 308-feature reduction before the area check.
+
+
+## Live Stage 6 reconstruction attempt and timeout (author Console, 3 November 2026)
+
+The author executed `gee/02_verify_T60_patch5_from_historical_stage3_READ_ONLY.js` using the accessible historical Stage 3 asset and an imported source boundary containing 308 polygon pieces:
+
+| Check | Observed |
+| --- | --- |
+| Source polygons | 308 |
+| Distinct district-village units | 304 |
+| Districts | 18 |
+| Pre-filter T60 candidate area | 332.3841543521087 ha |
+| After five-pixel eight-connected filter | Computation timed out in interactive Console |
+| Historical locked Stage 6 T60 reference | 323.33406072288363 ha |
+| Stage 3 raster CRS | EPSG:4326 |
+| Stage 3 raster native nominal scale | 10 m |
+| Affine transform | [0.00008983152841195215, 0, 112.33181099635063, 0, -0.00008983152841195215, -7.303123596834886] |
+
+The difference between the observed pre-filter area and the historical final filtered reference is about **9.05009362922507 ha**, but this is **not yet a measured removed-patch area** because the post-filter operation did not finish. The original native raster grid is EPSG:4326, whereas the reconstructed Stage 6 area reducer was explicitly requested in EPSG:32749 at 10 metres. This is a spatial reference distinction to preserve during exact reproduction, not proof that a projection mismatch caused the timeout.
+
+The next check uses `gee/03_stage6_T60_batch_QC_READ_ONLY.js`, a single CSV batch export from the historical Stage 3 image. It uses the same reconstructed `connectedPixelCount` maximum size 1024, eight-connectivity, threshold five pixels, and the same EPSG:32749 / 10 m area reducer. It exports only a summary table to Google Drive, without writing or overwriting any GEE assets. The export Task must be started by the author in the GEE Tasks panel. A successful Task output is needed before any live Stage 6 match is claimed.
