@@ -80,7 +80,7 @@ def read_exports(folder, prefix):
 
     for file in files:
         matched = re.fullmatch(
-            rf"{re.escape(prefix)}(\\d{{2}})_(.+)\\.csv",
+            rf"{re.escape(prefix)}(\d{{2}})_(.+)\.csv",
             file.name,
         )
         if not matched:
