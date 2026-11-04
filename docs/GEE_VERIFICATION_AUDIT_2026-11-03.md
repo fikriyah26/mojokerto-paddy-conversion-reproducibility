@@ -273,3 +273,16 @@ The script is initially configured to export **one pilot district**, Kecamatan K
 The Python script `tools/check_stage8_threshold_sensitivity_exports.py` checks pilot and complete exports against the historic 304-unit CSV, including all area values, threshold monotonicity, source T60 control, raw null flags, multipart keys, and positive counts. See [registered Stage 8 protocol](STAGE8_T50_T70_SENSITIVITY_VERIFICATION_PLAN_2026-11-04.md).
 
 **Status: Stage 8 GEE pilot is READY TO RUN, not completed.** Historical T50 and T70 raster identity is not established by the existence of the Stage 3 source asset or by the passed T60 check alone.
+
+
+## Stage 8 T50 and T70 pilot, Kecamatan Kutorejo: PASS (4 November 2026)
+
+The author executed `gee/09_stage7_T50_T70_locked_grid_sensitivity_BATCH.js` for district index 8, Kecamatan Kutorejo, and provided a completed 17-village CSV from https://drive.google.com/file/d/1G2T0q-6D-nxJN5fdP6-mZby3_0LQrqEM/view. This was retrieved and compared against the archived `data_derived/Stage7_304_Units_From_18_District_Exports.csv`.
+
+T50 fresh district total **55.510712193694026 ha** versus historical **55.51071220490999 ha**, 17 positive villages. T60 rebuilt and original locked controls both **27.630933147007784 ha** versus historical **27.63093313694076 ha**, 16 positive villages. T70 fresh **5.867751704967198 ha** versus historical **5.867751710013591 ha**, 10 positive villages.
+
+All **17 of 17 village-level values** match reference within the preregistered **0.000001 ha absolute per-unit tolerance** for all three threshold series. Maximum absolute differences: T50 **4.479571025228779e-8 ha**, T60 **2.614737137918155e-8 ha**, T70 **2.4010238686145158e-8 ha**. Rebuilt T60 equals original locked T60 for every pilot unit, all null flags are zero and threshold monotonicity is preserved.
+
+The full author-run pilot file and 17-unit comparison have been archived in `qa_outputs`. See the [Stage 8 pilot report](STAGE8_T50_T70_KUTOREJO_PILOT_PASS_2026-11-04.md).
+
+**Current status:** T50/T70 sensitivity pilot PASS, but the full 304-unit T50/T70 rerun is not yet verified. Next action is to run the remaining 17 district CSV exports in six batches. The script automatically skips the already validated Kecamatan Kutorejo pilot in full batches and does not write Earth Engine assets.
