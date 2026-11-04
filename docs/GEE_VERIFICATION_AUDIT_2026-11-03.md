@@ -334,3 +334,20 @@ See [full Stage 9 methods and verification report](STAGE9_RICE_CAPACITY_AND_GROS
 **Important distinction:** PASS is for numerical reproduction conditional on the documented cropping-intensity treatments, regional production inputs and manuscript full-precision milling-level price. It does not demonstrate independent reconstruction of unrounded national monthly prices from BPS public tables, upstream historical Dynamic World classification, original map validation, causal rice loss, or farmers' realized income. These remain separate provenance and inference limits.
 
 Next planned independent test is the global and local spatial analysis, including separate annual rice-capacity and per-hectare variables and any local FDR correction.
+
+
+## Tahap 10: Moran global, Local Moran, dan Benjamini-Hochberg FDR (4 November 2026)
+
+Reproduksi analisis spasial telah dijalankan secara terpisah menggunakan geometri administrasi hasil dissolve menjadi 304 unit, 230 unit positif T60, input luas dan kapasitas dari tabel Stage 7 yang telah direkonsiliasi dengan Tahap 7 sampai Tahap 9, serta statistik dan nilai p LISA dari berkas QGIS historis.
+
+**Global Moran:** Seluruh **25 dari 25** kombinasi Queen `touches` dengan penanganan nearest-neighbor untuk poligon terisolasi dan KNN 4, 6, 8, 12 cocok dengan arsip, termasuk nilai p permutasi serta skor z pada 1.999 permutasi dengan seed 20261025. I utama: luas konversi 304 unit **0.1605510371696768**, kapasitas tahunan 304 unit **0.23568845490068563**, kapasitas per hektare 230 unit KNN 8 **0.5357241471212675**. Maksimum selisih I sebesar 6.6058269965196814e-15.
+
+**Local Moran:** Seluruh **838 dari 838** statistik Local Moran cocok dengan arsip dengan maksimum selisih kurang dari 4.7e-13. Reproduksi nilai lokal bagi 304 unit membutuhkan predikat geometri `intersects`, bukan `touches`. Penggunaan `touches` menghasilkan 41 selisih statistik lokal pada indikator luas dan 41 pada indikator produksi tahunan. Reproduksi intensitas 230 unit menggunakan KNN 8 dan varians sampel dalam penyebut rumus.
+
+**FDR dari probabilitas historis:** Seluruh **838 dari 838** nilai q Benjamini–Hochberg yang dihitung ulang dari nilai p historis cocok dengan arsip. Pada q 0.05, luas konversi 55 nominal menjadi **0** FDR, kapasitas tahunan 70 nominal menjadi **0** FDR, dan kapasitas per hektare 110 nominal menjadi **70** FDR, termasuk **27 High-High**.
+
+**Penapisan:** Median luas 0.9150309504879219 ha dan median produksi per hektare 5.348577563070499 ton/ha/tahun menghasilkan 54 unit Tipe A. Sebanyak **12** merupakan kandidat inti nominal, dan enam juga High-High nominal menurut luas konversi. Tidak satu pun kandidat inti tersebut mendapat konfirmasi FDR pada kapasitas produksi tahunan.
+
+**Batas utama:** Nilai p historis LISA berasal dari 999 permutasi kondisional GeoDa atau QGIS. Tahap 10 belum mengulang proses acak kondisional tersebut. Oleh karena itu, reproduksi nilai q tidak boleh disebut reproduksi independen nilai p. Nilai p Global Moran yang diuji ulang menggunakan rancangan berbeda, yaitu 1.999 permutasi global.
+
+Lihat [laporan Tahap 10](STAGE10_SPATIAL_MORAN_LISA_FDR_VERIFICATION_2026-11-04.md), [ringkasan FDR](../qa_outputs/Stage10_LISA_BH_FDR_Summary_2026-11-04.csv), dan [12 kandidat eksploratif](../qa_outputs/Stage10_12_Exploratory_Core_Candidates_2026-11-04.csv). Arsip percakapan juga menyediakan kode Python dan semua CSV numerik terperinci tanpa menyebarkan shapefile berlisensi yang belum terverifikasi.
