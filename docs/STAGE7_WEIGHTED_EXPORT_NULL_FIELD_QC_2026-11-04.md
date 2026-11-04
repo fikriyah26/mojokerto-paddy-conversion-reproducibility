@@ -63,3 +63,21 @@ The other 12 of 17 villages pass the tolerance check.
 Evidence: `qa_outputs/Mojokerto_Stage7_WeightedFix_Test_09_Kutorejo_2026-11-04.csv` and `qa_outputs/Mojokerto_Stage7_Kutorejo_PerVillage_Differences_2026-11-04.csv`.
 
 **Status:** Fixed blank columns, but direct-reduce method FAILS exact per-village reproduction for 5 of 17 villages. No all-district rerun should be requested with this method yet. A narrow six-village comparison of `updateMask` versus zero-filled input, single-band versus multiband `reduceRegions`, and direct per-feature reduction is prepared as `gee/07c_compare_masked_zonal_methods_Kutorejo.js`. This study does not yet establish which factor caused the five discrepancies. The original archive totals remain unchanged.
+
+
+## Confirmed explanation from the six-village weighted-method diagnostic
+
+The author completed GEE script `gee/07c_compare_masked_zonal_methods_Kutorejo.js` and supplied the resulting CSV, hosted at:
+https://drive.google.com/file/d/1ilajWGLKuW1dDrxuERxFdvdy00H2BJqe/view
+
+The unchanged evidence CSV was saved under `qa_outputs/Mojokerto_Stage7_Weighted_Methods_QC_Kutorejo_2026-11-04.csv`.
+
+**All six samples** agree with the historical area-weighted archive to numerical precision when pixel area is calculated using `ee.Image.pixelArea().divide(10000).updateMask(locked.eq(1).selfMask())`, without zero-filling the conversion mask before calculating the area. The comparison included Desa Kaligoro, Desa Kepuharum, Desa Kepuhpandak, Desa Pesanggrahan, Desa Windurejo and Desa Wonodadi, all in Kecamatan Kutorejo. Five of six samples differ from the historical archive when the image is calculated by multiplying pixelArea by `locked.eq(1).unmask(0)`, and Desa Pesanggrahan happens to agree under either representation.
+
+The single-band `ee.Image.reduceRegions` output contains a numeric field named **`sum`** for these six positive samples. The named `area_T60_ha` field is blank because that property is absent in the single-band output. A three-band `reduceRegions` returns a correctly named `area_T60_ha` band property. This accounts for the 308 blank numeric fields from the initial exports.
+
+The masked versus zero-filled area difference is an observed GEE effect in these six cases. Its exact pixel-by-pixel fractional-weighting mechanism has not been independently isolated beyond the method comparison, so avoid extending a numerical claim beyond the tested locations.
+
+**Corrected verified export script:** `gee/07d_stage7_weighted_corrected_18_district_BATCH.js`, which uses the original locked Stage 6 image, retains `updateMask`, reads `f.get('sum')`, exposes a `raw_sum_missing` diagnostic and exports one district at a time before the complete 18-district rerun. The Python validator `tools/check_stage6_village_weighted_exports.py` was amended to accept files with the `Mojokerto_Stage7_WeightedCorrected_` prefix and still reject blank area values.
+
+This evidence supports the corrective method but the fresh entire 304-unit area reconciliation still must be executed and validated. The user's original historical figures remain unchanged.
