@@ -65,7 +65,7 @@ The pilot must pass each of the following:
 
 ## After successful pilot
 
-Change `BATCH_START` to 0, 3, 6, 9, 12 and 15 with `BATCH_COUNT = 3` in six GEE Code Editor runs. Because the 09_Kutorejo pilot may already exist, do not create duplicate files for it. Use only one complete set of uniquely numbered 18 files in the final comparison. All original assets are read-only.
+Change `BATCH_START` to 0, 3, 6, 9, 12 and 15 with `BATCH_COUNT = 3` in six GEE Code Editor runs. The script now uses `SKIP_KUTOREJO_AFTER_PILOT = true`, which automatically skips the pilot at index 8 in three-district runs. Preserve the validated pilot CSV as the only file for district 09. Use one complete set of uniquely numbered 18 files in the final comparison. All original assets are read-only.
 
 Run `tools/check_stage8_threshold_sensitivity_exports.py` with `--mode full` and compare against `data_derived/Stage7_304_Units_From_18_District_Exports.csv`. Full criteria: 308 polygon parts, 304 unique keys, four known multipart units, positive-unit counts of 261, 230, 128, totals of 610.9156963, 323.3340607, 89.0284437 ha, and per-unit errors no greater than 0.000001 ha. The control T60 rebuilt raster must agree with original locked T60 by village.
 
