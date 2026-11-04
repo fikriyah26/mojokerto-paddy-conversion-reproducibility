@@ -35,3 +35,31 @@ The source JavaScript `gee/07_stage6_locked_304_village_weighted_BATCH.js` uses 
 5. The companion checker `tools/check_stage6_village_weighted_exports.py` now rejects blank area strings explicitly, rather than treating them as zero.
 
 Historical benchmark remains: **304** unique units, **230** positive units, **323.33406072288363 ha** from the archived weighted Stage 7 exports. The previously completed 18-district **pixel-centre** mask identity check remains valid and is a distinct test.
+
+
+## Corrective one-district result, 4 November 2026
+
+The author ran `gee/07b_test_weighted_Kutorejo_DIRECT_REDUCE.js` in the historical GEE account. Console reported 17 original polygon parts for Kecamatan Kutorejo and a sample T60 result for Desa Pesanggrahan of **7.38329945621264 ha**, compared with the archived **7.383299456212667 ha** (difference approximately -2.66e-14 ha).
+
+The completed Drive CSV `Mojokerto_Stage7_WeightedFix_Test_09_Kutorejo.csv` was retrieved from
+https://drive.google.com/file/d/1jSvlrV8pN0Z0ioIeLumzqnigUf-BAIW0/view
+
+**All 17 area fields are numeric.** However, comparison with the archived original Stage 7 304-unit table reveals five discrepancies above the pre-registered 0.000001 ha per-unit threshold:
+
+| Unit | Fresh direct-reduce ha | Historical ha | Fresh minus historical ha |
+| --- | ---: | ---: | ---: |
+| Desa Kepuhpandak, Kecamatan Kutorejo | 1.4252579691209968 | 1.427440736742207 | -0.00218276762121028 |
+| Desa Windurejo, Kecamatan Kutorejo | 0.4640363033967859 | 0.4655677938274307 | -0.0015314904306447663 |
+| Desa Wonodadi, Kecamatan Kutorejo | 2.3162511550005744 | 2.316863789137298 | -0.0006126341367234112 |
+| Desa Kaligoro, Kecamatan Kutorejo | 1.7551750852457673 | 1.755481434347115 | -0.00030634910134774707 |
+| Desa Kepuharum, Kecamatan Kutorejo | 0.5225574152838015 | 0.5226339882794547 | -0.00007657299565322351 |
+
+The other 12 of 17 villages pass the tolerance check.
+
+- Fresh district total: **27.62622332265515 ha**.
+- Historical district total from the reconciled table: **27.63093313694076 ha**.
+- Fresh minus historical: **-0.00470981428561 ha**.
+
+Evidence: `qa_outputs/Mojokerto_Stage7_WeightedFix_Test_09_Kutorejo_2026-11-04.csv` and `qa_outputs/Mojokerto_Stage7_Kutorejo_PerVillage_Differences_2026-11-04.csv`.
+
+**Status:** Fixed blank columns, but direct-reduce method FAILS exact per-village reproduction for 5 of 17 villages. No all-district rerun should be requested with this method yet. A narrow six-village comparison of `updateMask` versus zero-filled input, single-band versus multiband `reduceRegions`, and direct per-feature reduction is prepared as `gee/07c_compare_masked_zonal_methods_Kutorejo.js`. This study does not yet establish which factor caused the five discrepancies. The original archive totals remain unchanged.
