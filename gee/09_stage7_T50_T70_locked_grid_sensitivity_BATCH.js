@@ -29,7 +29,9 @@ DO NOT run all 18 districts until the pilot CSV is compared with the
 historical 17-unit archive and all three thresholds pass.
 
 After pilot success, BATCH_START 0,3,6,9,12,15 and BATCH_COUNT 3.
-If needed set BATCH_COUNT 1. CSVs go only to Drive.
+The pilot Kecamatan Kutorejo is skipped automatically in full 3-district
+batches to avoid a duplicate CSV. For retrying one other district, use
+BATCH_COUNT 1 and a distinct BATCH_START. CSVs go only to Drive.
 NO GEE image or table assets are overwritten or exported.
 */
 
@@ -39,6 +41,8 @@ var LOCKED_T60_ASSET =
 var EXPORT_FOLDER = 'Mojokerto_GEE_Research'
 var BATCH_START = 8
 var BATCH_COUNT = 1
+// In full three-district runs, preserve already validated 09_Kutorejo pilot.
+var SKIP_KUTOREJO_AFTER_PILOT = true
 var PATCH_MIN_PIXELS = 5
 var PATCH_MAX_SIZE = 1024
 var TILE_SCALE = 16
@@ -162,6 +166,10 @@ function exportRow(f) {
 
 var stop = BATCH_START + BATCH_COUNT
 for (var i = BATCH_START; i < stop; i++) {
+  if (SKIP_KUTOREJO_AFTER_PILOT && BATCH_COUNT > 1 && i === 8) {
+    print('Keeping completed district 09 pilot, skipping duplicate', DISTRICTS[i])
+    continue
+  }
   var district = DISTRICTS[i]
   var sourcePieces = admin.filter(ee.Filter.eq('KECAMATAN', district))
   var zonal = areas.reduceRegions({
