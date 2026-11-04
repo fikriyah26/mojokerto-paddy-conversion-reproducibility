@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# Archived strict sensitivity checker from before Stage 9 coefficients were verified.
+# It intentionally refuses T50 areas in the 31 units missing original T60
+# coefficients. For the completed, documented 304-unit economic rerun use
+# tools/verify_stage9_rice_economics.py with the Stage 9 coefficients CSV.
+# This source is retained to document the earlier fail-closed design.
+
 """Calculate threshold-specific production and monetary figures only when the
 Stage 7 POST-PATCH village export exists and per-village rice intensity is known.
 Only historic 230 conversion villages have a verified RICE_INT parameter.
