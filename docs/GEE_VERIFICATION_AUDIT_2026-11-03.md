@@ -119,3 +119,13 @@ The previously completed Stage 3 T60 reconstruction still yields 323.58196069290
 Read [full original locked TIFF audit](STAGE6_LOCKED_RASTER_OFFLINE_AUDIT_2026-11-04.md). Two additional scripts are available: `gee/04_inventory_historical_locked_assets_READ_ONLY.js` to discover a genuine historical Stage 6 asset under `users/fikriiyah26`, and `gee/05_stage6_locked_grid_district_BATCH.js` to compare masks on the original reference affine in one district after the locked asset is verified. The second script deliberately resamples Stage 3 before connectivity filtering and is an experimental sensitivity check, not a documented historical replay.
 
 **Live GEE pixel-wise identity and the cause of the 0.24789997 ha discrepancy remain unverified.**
+
+## Legacy asset discovery follow-up, 4 November 2026
+
+The author ran the read-only legacy asset inventory under `users/fikriiyah26`. The output listed three potential conversion-related assets, but their names and types were still collapsed in the Console. Direct lookup of three guessed names returned Asset Not Found:
+
+- `users/fikriiyah26/Mojokerto_Final_Conversion_Mask_Locked`
+- `users/fikriiyah26/Mojokerto_Stage6_Final_Conversion_Mask`
+- `users/fikriiyah26/Mojokerto_Stage6_T60_Patch5`
+
+**These failures do not establish that no historical Stage 6 image exists under a different name.** The original inventory script was updated to print every matching candidate's full name, asset type, band names, projection and transform individually. No asset should be selected for raster comparison without checking its content. The locked GeoTIFF in Google Drive remains the fallback reference if none of the discovered candidates is a valid preserved Stage 6 image.
