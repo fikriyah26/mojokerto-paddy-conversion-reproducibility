@@ -129,3 +129,16 @@ The author ran the read-only legacy asset inventory under `users/fikriiyah26`. T
 - `users/fikriiyah26/Mojokerto_Stage6_T60_Patch5`
 
 **These failures do not establish that no historical Stage 6 image exists under a different name.** The original inventory script was updated to print every matching candidate's full name, asset type, band names, projection and transform individually. No asset should be selected for raster comparison without checking its content. The locked GeoTIFF in Google Drive remains the fallback reference if none of the discovered candidates is a valid preserved Stage 6 image.
+
+
+## Stage 6 locked image asset found, 4 November 2026
+
+The author discovered an accessible `IMAGE` under the original legacy root `users/fikriiyah26`:
+
+- `projects/earthengine-legacy/assets/users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1`
+- Band: `final_conv`
+- Exact reported affine: `[10,0,12504720,0,-10,-815190]`
+
+This matches the archived final GeoTIFF affine. The output did not expand the projection CRS, so the script will explicitly print `projection().crs()` before grid comparison. The previously guessed asset names were incorrect, rather than proof of missing historical Stage 6 data.
+
+The corrected `gee/05_stage6_locked_grid_district_BATCH.js` uses the original GEE locked raster directly and creates one CSV task for Kecamatan Kutorejo. The comparison tests source masks and grid influence and does not modify either research image. Exact pixel identity of the GEE locked image with the Drive GeoTIFF and the origin of the reconstructed 0.24789997 ha difference are still awaiting evidence.
