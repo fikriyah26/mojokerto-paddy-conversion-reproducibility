@@ -212,3 +212,18 @@ The completed `Mojokerto_Stage7_WeightedFix_Test_09_Kutorejo.csv` from Drive has
 The prior all-blank CSV failure has been fixed for this one district, but **the area-weighted 304-unit historical reproduction is NOT YET VERIFIED** and a full 18-district rerun using the direct reduction method is **not recommended**. Investigate mask treatment and reducer interfaces using `gee/07c_compare_masked_zonal_methods_Kutorejo.js`. No specific cause has been proven. Full results and source evidence appear in [the Stage 7 QC log](STAGE7_WEIGHTED_EXPORT_NULL_FIELD_QC_2026-11-04.md) and `qa_outputs/Mojokerto_Stage7_Kutorejo_PerVillage_Differences_2026-11-04.csv`.
 
 Previous zero-mismatch 18-district raster pixel-centre QC remains valid and is methodologically distinct.
+
+
+## Six-village diagnostic resolved the Stage 7 weighted-export discrepancies (4 November 2026)
+
+The completed author-run CSV `Mojokerto_Stage7_Weighted_Methods_QC_Kutorejo.csv` was retrieved from
+https://drive.google.com/file/d/1ilajWGLKuW1dDrxuERxFdvdy00H2BJqe/view
+and archived in `qa_outputs/Mojokerto_Stage7_Weighted_Methods_QC_Kutorejo_2026-11-04.csv`.
+
+All six reference areas in Kecamatan Kutorejo match their original Stage 7 historical values when the area input uses masked `ee.Image.pixelArea()/10000` with `updateMask(locked.eq(1).selfMask())`. Five of the six values differ when zero-filled `locked.eq(1).unmask(0)` is multiplied into pixelArea. The mask handling is therefore a verified methodological difference for these six samples.
+
+The initial batch export's 308 blank area values came from an incorrect assumed output property: single-band `ee.Image.reduceRegions(ee.Reducer.sum())` returned `sum`, not `area_T60_ha` in the author-run diagnostic. The three-band control returned a band-named `area_T60_ha` property.
+
+A corrected script `gee/07d_stage7_weighted_corrected_18_district_BATCH.js` is registered and configured for a **single-district** test first, using retained masks, weighted `reduceRegions`, and the empirically verified `sum` property. The obsolete `gee/07_stage6_locked_304_village_weighted_BATCH.js` was marked deprecated. Updated `tools/check_stage6_village_weighted_exports.py` checks the corrected filename prefix, rejects blank areas and compares the complete 304 keys, positive-unit count and per-unit values to the historical archive.
+
+**The full corrected 18-district zonal rerun has not yet been performed.** Do not claim fresh verification of 230 positive units until corrected outputs exist.
