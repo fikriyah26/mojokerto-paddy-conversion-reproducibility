@@ -199,3 +199,16 @@ The author completed the 18 `Mojokerto_Stage6_VillageWeighted_XX` GEE CSV export
 - The local CSV comparison checker was updated to reject blank numeric fields. No GEE re-export success has been claimed.
 
 The previously verified 18-district pixel-centre raster agreement and archived 304-unit/230-positive historical statistics remain intact and must be distinguished from this unsuccessful fresh weighted rerun.
+
+
+## Stage 7 corrective Kutorejo rerun, 4 November 2026
+
+The author ran the corrective one-district GEE test `gee/07b_test_weighted_Kutorejo_DIRECT_REDUCE.js`, with source `projects/earthengine-legacy/assets/users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1` band `final_conv` on native EPSG:3857 grid, transform `[10,0,12504720,0,-10,-815190]`.
+
+Console observation: 17 district polygon parts, Desa Pesanggrahan historical 7.383299456212667 ha, fresh GEE 7.38329945621264 ha (difference approximately -2.66e-14 ha).
+
+The completed `Mojokerto_Stage7_WeightedFix_Test_09_Kutorejo.csv` from Drive has 17 nonblank numeric area rows. Full unit-level comparison with the original archived Stage 7 table shows **12 units pass, 5 fail** the 0.000001 ha tolerance threshold. The five discrepancies concern Desa Kepuhpandak, Desa Windurejo, Desa Wonodadi, Desa Kaligoro, and Desa Kepuharum. The fresh district total is 27.62622332265515 ha versus 27.63093313694076 ha in the historical table, delta -0.00470981428561 ha.
+
+The prior all-blank CSV failure has been fixed for this one district, but **the area-weighted 304-unit historical reproduction is NOT YET VERIFIED** and a full 18-district rerun using the direct reduction method is **not recommended**. Investigate mask treatment and reducer interfaces using `gee/07c_compare_masked_zonal_methods_Kutorejo.js`. No specific cause has been proven. Full results and source evidence appear in [the Stage 7 QC log](STAGE7_WEIGHTED_EXPORT_NULL_FIELD_QC_2026-11-04.md) and `qa_outputs/Mojokerto_Stage7_Kutorejo_PerVillage_Differences_2026-11-04.csv`.
+
+Previous zero-mismatch 18-district raster pixel-centre QC remains valid and is methodologically distinct.
