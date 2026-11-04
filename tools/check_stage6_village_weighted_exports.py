@@ -1,6 +1,6 @@
 """Reconcile 18 GEE Stage 6 weighted-area CSV exports with Stage 7 archive.
 
-Source CSVs from gee/07_stage6_locked_304_village_weighted_BATCH.js.
+Corrected CSVs from gee/07d_stage7_weighted_corrected_18_district_BATCH.js.
 Export 308 original polygon-part rows, then aggregate to 304 district-village
 units. A weighted area reducer is REQUIRED, not the pixel-centre unweighted sum.
 
@@ -22,7 +22,11 @@ from collections import Counter, defaultdict
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
-PREFIX = "Mojokerto_Stage6_VillageWeighted_"
+DEFAULT_PREFIX = "Mojokerto_Stage7_WeightedCorrected_"
+ALLOWED_PREFIXES = {
+    "Mojokerto_Stage7_WeightedCorrected_",
+    "Mojokerto_Stage6_VillageWeighted_",
+}
 HISTORICAL_HA = Decimal("323.33406072288363")
 MAX_ACCEPTED_ABS_HA = Decimal("0.000001")
 EXPECTED_POSITIVE = 230
@@ -61,10 +65,12 @@ def read_reference(path):
     return result
 
 
-def read_exports(folder):
-    files = sorted(folder.glob(PREFIX + "*.csv"))
+def read_exports(folder, prefix):
+    if prefix not in ALLOWED_PREFIXES:
+        raise ValueError(f"Unrecognized export filename prefix: {prefix}")
+    files = sorted(folder.glob(prefix + "*.csv"))
     if not files:
-        raise ValueError("No Stage 6 village-weighted exports found in the directory")
+        raise ValueError("No matching village-weighted exports found in the directory")
 
     observed_batches = []
     unit_areas = defaultdict(lambda: Decimal(0))
@@ -74,7 +80,7 @@ def read_exports(folder):
 
     for file in files:
         matched = re.fullmatch(
-            r"Mojokerto_Stage6_VillageWeighted_(\d{2})_(.+)\.csv",
+            rf"{re.escape(prefix)}(\\d{{2}})_(.+)\\.csv",
             file.name,
         )
         if not matched:
@@ -128,7 +134,7 @@ def write_summary(out, new, historical):
 
 
 def main(args):
-    fresh, part_count, n_rows, district_files = read_exports(args.exports)
+    fresh, part_count, n_rows, district_files = read_exports(args.exports, args.prefix)
     archived = read_reference(args.reference)
 
     missing_keys = sorted(set(archived) - set(fresh))
@@ -204,4 +210,5 @@ if __name__ == "__main__":
     parser.add_argument("--exports", type=Path, required=True)
     parser.add_argument("--reference", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--prefix", default=DEFAULT_PREFIX, choices=sorted(ALLOWED_PREFIXES))
     sys.exit(main(parser.parse_args()))
