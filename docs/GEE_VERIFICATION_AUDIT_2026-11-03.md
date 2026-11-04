@@ -351,3 +351,31 @@ Reproduksi analisis spasial telah dijalankan secara terpisah menggunakan geometr
 **Batas utama:** Nilai p historis LISA berasal dari 999 permutasi kondisional GeoDa atau QGIS. Tahap 10 belum mengulang proses acak kondisional tersebut. Oleh karena itu, reproduksi nilai q tidak boleh disebut reproduksi independen nilai p. Nilai p Global Moran yang diuji ulang menggunakan rancangan berbeda, yaitu 1.999 permutasi global.
 
 Lihat [laporan Tahap 10](STAGE10_SPATIAL_MORAN_LISA_FDR_VERIFICATION_2026-11-04.md), [ringkasan FDR](../qa_outputs/Stage10_LISA_BH_FDR_Summary_2026-11-04.csv), dan [12 kandidat eksploratif](../qa_outputs/Stage10_12_Exploratory_Core_Candidates_2026-11-04.csv). Arsip percakapan juga menyediakan kode Python dan semua CSV numerik terperinci tanpa menyebarkan shapefile berlisensi yang belum terverifikasi.
+
+
+## Stage 11: independent local conditional randomization and robustness (4 November 2026)
+
+A new, independent conditional permutation experiment was completed on 304 original administrative polygons and the 230 T60-positive polygons. The author-source geometry and 304-unit numerical indicators were the same independently reconciled inputs used in the Stage 10 verified spatial statistics. The fresh Monte Carlo test fixes each focal value, draws the observed number of neighbors without replacement from all other units, and applies sign-directed pseudo p-values and BH correction separately for the CONV, PROD and INT families.
+
+**Computed evidence:** 24 permutation scenarios, 6,704 unit-indicator-scenario rows, and automatic QA confirming the 838 baseline observed local Moran I statistics match the Stage 10 source. Two seeds were tested at 999 and 9,999 permutations for each indicator, and at 99,999 permutations for CONV and PROD. Spatial alternatives used strict touches plus nearest-neighbor island handling, and KNN 6, 8, 12 for intensity.
+
+| Indicator | Original archived BH after 999 permutations | Independent 999 perm, two seeds | Independent 9,999 perm, two seeds | Independent 99,999 perm, two seeds |
+| --- | ---: | ---: | ---: | ---: |
+| CONV (304) | 0 | 0, 0 | 8, 0 | 8, 7 |
+| PROD (304) | 0 | 0, 0 | 4, 5 | 6, 6 |
+| INT (230) | 70 | 72, 72 | 74, 73 | Not computed |
+
+At 99,999 permutations, the two seeds yielded **the same six significant PROD units** after BH (three HH and three LL) and seven common significant CONV units, plus one marginal CONV unit in the first seed. These findings show that the original 999-permutation absence of BH-significant CONV and PROD local units is not invariant to Monte Carlo resolution. It must be reported as an outcome of that specific specification, not as evidence of an absence of local association.
+
+Under the alternative 9,999-permutation strict touches geometry, BH yielded 0 CONV and 4 PROD significant units. **41 of 304 administrative units** have different neighborhood sets for intersects versus touches. For INT, KNN 6 yielded 51 BH units, KNN 8 yielded 73 or 74 and KNN 12 yielded 103. Under the more conservative Benjamini–Yekutieli adjustment, neither CONV nor PROD retained any unit at 99,999 permutations, while INT retained 46 or 48 at 9,999 permutations.
+
+Of the original 12 nominal core candidates, **Desa Purwojati in Kecamatan Ngoro and Desa Kembangringgit in Kecamatan Pungging** satisfy the combined BH-significant HH rule for annual capacity and per-hectare capacity in both independent 9,999-permutation runs. Their annual-capacity HH classifications also survive the independent two-seed 99,999-permutation experiment. This changes the sensitivity interpretation relative to the original 999-permutation archive but does not retrospectively alter the manuscript's historical nominal classifications.
+
+**Important methodological boundary:** the original GeoDa random state was not available, so the new conditional p-values are genuinely independent Monte Carlo outcomes and are **not expected to match the old p-values entry by entry**. They must not be characterized as a byte-for-byte replay. Statistical results remain dependent on polygon topology and multiple-testing assumptions.
+
+Evidence:
+- [Complete Stage 11 report](STAGE11_LOCAL_CONDITIONAL_PERMUTATION_SENSITIVITY_2026-11-04.md)
+- [24 scenario statistical summary](../qa_outputs/Stage11_Conditional_Local_Permutation_Scenario_Summary_2026-11-04.csv)
+- [Two-seed high-resolution BH membership](../qa_outputs/Stage11_99k_FDR_304_Unit_Reproducibility_2026-11-04.csv)
+
+The downloadable conversation archive `Mojokerto_Stage11_Verifikasi_Permutasi_Lokal_2026-11-04.zip` also contains the full reproducible Python source, all 6,704 individual scenario outputs, 838-unit p-value comparisons, and QA logs. The original administrative source shapefile has not been republished.
