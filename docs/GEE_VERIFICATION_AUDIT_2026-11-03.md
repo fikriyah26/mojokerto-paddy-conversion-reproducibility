@@ -309,3 +309,28 @@ After the successful Kecamatan Kutorejo pilot, the author ran the remaining 17 d
 See [full Stage 8 sensitivity PASS report](STAGE8_T50_T70_304_VILLAGES_FRESH_GEE_PASS_2026-11-04.md), [308 raw derived source rows with Drive source IDs](../qa_outputs/Mojokerto_Stage8_ThresholdGrid_All308_Parts_2026-11-04.csv) and [304 unit-level comparisons](../qa_outputs/Mojokerto_Stage8_ThresholdGrid_304_Unit_Comparison_2026-11-04.csv).
 
 **Remaining limitations:** No independently preserved historical final T50/T70 IMAGE asset was found for pixel-by-pixel equality testing. Initial Stage 1–3 Dynamic World classification, Stage 5 validation and productivity/economic/spatial calculations still require separate reproductions.
+
+
+## Stage 9 rice-capacity and gross-output arithmetic: PASS (4 November 2026)
+
+Economic calculations were independently executed from the successful 304-unit Stage 8 GEE area outputs and the historical model's village cropping-index inputs in Library workbook `Mojokerto_Foregone_Rice_Production_Sensitivity.xlsx`.
+
+The 304 units comprise 230 locked T60 coefficients, 31 provisional T50-only coefficients derived from observed 2024 BPS village cropping intensities using the historical treatment rules, and 43 with no conversion under any of the three thresholds. Two provisional T50 raw intensities were capped at 3.0, and the original 230 T60 model had two district-median imputations and one cap.
+
+The 2025 production-input model uses 51,750 harvested ha, 312,410 t GKG and 180,390 t food rice. Its regional yield and effective GKG-to-rice conversion are derived as ratios. The rice price is the manuscript's documented full-precision 2025 national medium-rice mill-level price of IDR 12,984.88809 per kg.
+
+| Threshold | Fresh rice capacity (t/y) | Fresh gross output equivalent (IDR/y) | Historical rice capacity (t/y) | Historical gross output (IDR/y) |
+| --- | ---: | ---: | ---: | ---: |
+| T50 | 3144.451679350694 | 40830353160.78133 | 3144.451679092195 | 40830353158.2001 |
+| T60 | 1628.678278715752 | 21148205183.73786 | 1628.6782775339984 | 21148205168.794533 |
+| T70 | 429.8339095594595 | 5581345212.916761 | 429.8339091474901 | 5581345207.673375 |
+
+All modelled totals pass the registered tolerance of 0.00001 t/year for rice and IDR 100/year for gross output. The largest monetary residual is about IDR 14.94 per year. The fresh 230-unit T60 village rice capacities also match the historical `Foregone_Desa` workbook tab within about 3.78e-7 t/year per unit.
+
+The 31 provisional T50-only units account for about 7.16898843 ha and 33.28539017 t/year, consistent with the manuscript's rounded 7.16899 ha and 33.28539 t/year. The 43 zero-conversion units contribute no economic value.
+
+See [full Stage 9 methods and verification report](STAGE9_RICE_CAPACITY_AND_GROSS_OUTPUT_FRESH_GEE_VERIFICATION_2026-11-04.md), [model coefficient evidence](../data_derived/Stage9_Rice_Coefficients_304_Units_2026-11-04.csv), [304-unit economic outputs](../qa_outputs/Mojokerto_Stage9_FreshGEE_304_Unit_Rice_Economics_2026-11-04.csv), and [3-threshold summary and numerical residuals](../qa_outputs/Mojokerto_Stage9_Rice_Economics_Summary_2026-11-04.csv). A standalone Python implementation is registered at `tools/verify_stage9_rice_economics.py`.
+
+**Important distinction:** PASS is for numerical reproduction conditional on the documented cropping-intensity treatments, regional production inputs and manuscript full-precision milling-level price. It does not demonstrate independent reconstruction of unrounded national monthly prices from BPS public tables, upstream historical Dynamic World classification, original map validation, causal rice loss, or farmers' realized income. These remain separate provenance and inference limits.
+
+Next planned independent test is the global and local spatial analysis, including separate annual rice-capacity and per-hectare variables and any local FDR correction.
