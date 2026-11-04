@@ -1,4 +1,13 @@
 /*
+DEPRECATED HISTORICAL DIAGNOSTIC - DO NOT USE FOR NEW EXPORTS.
+Author-run batch returned 308 blank area values.
+The single-band reducer exposes 'sum', not 'area_T60_ha'.
+Use gee/07d_stage7_weighted_corrected_18_district_BATCH.js
+which preserves updateMask and reads the correct 'sum' field.
+This superseded source is preserved to document the failed test.
+*/
+
+/*
 Stage 7 verification of Stage 6 historical T60 area by village.
 Source is the ACTUAL locked Stage 6 GEE image, not reconstructed Stage 3.
 Each GEE export contains original polygon parts for one district.
