@@ -41,3 +41,17 @@ Arsip 304 poligon dan 230 poligon berformat shapefile EPSG:32749 tersedia, tetap
 * Raster baru T50 dan T70: **belum tersedia**.
 * Omission error: **belum tersedia**.
 * Semua data sampel baru yang belum diinterpretasikan tidak boleh diklaim sebagai hasil validasi.
+
+## Pembaruan status per 4 November 2026
+
+Pernyataan sebelumnya mengenai belum tersedianya perhitungan ulang T50 dan T70 mencerminkan kondisi tanggal 25 Oktober 2026. Pengujian berikutnya telah berhasil dilakukan:
+
+- Rekonstruksi Stage 3 ke raster T60 historis pada grid EPSG:3857 menghasilkan nol piksel berbeda pada pusat piksel di 18 kecamatan.
+- Perhitungan ulang luas berbobot T60 langsung dari raster Stage 6 lulus untuk 304 unit dan 230 unit positif.
+- Perhitungan ulang sensitivitas T50 dan T70 menggunakan aset Stage 3, grid historis Stage 6, pemfilteran lima piksel dan reducer berbobot telah lulus untuk **304 unit** berdasarkan batas toleransi absolut 0,000001 ha per unit.
+- Nilai hasil baru sekitar T50 610,9156963 ha dengan 261 unit positif, T60 323,3340609 ha dengan 230 unit positif, dan T70 89,0284438 ha dengan 128 unit positif. Angka-angka tersebut konsisten dengan arsip Stage 7 berdasarkan toleransi yang sama.
+- Sumber: `docs/STAGE7_304_VILLAGES_FRESH_GEE_WEIGHTED_PASS_2026-11-04.md` dan `docs/STAGE8_T50_T70_304_VILLAGES_FRESH_GEE_PASS_2026-11-04.md`.
+
+Hasil ini **belum** berarti seluruh proses klasifikasi Dynamic World tahap awal, validasi historis Stage 5, parameter produksi, hasil moneter, dan uji spasial telah direproduksi secara independen.
+
+Tahap analisis berikutnya adalah menguji ulang rumus dan koefisien intensitas tanam per desa untuk kapasitas produksi padi yang tidak lagi dihasilkan dan ekuivalen nilai output kotor. Perhitungan sensitivitas T50 memerlukan perhatian khusus karena jumlah unit positif lebih banyak dibandingkan spesifikasi T60. Koefisien yang tidak tersedia tidak boleh diimputasi semata-mata agar hasil sesuai angka manuskrip.
