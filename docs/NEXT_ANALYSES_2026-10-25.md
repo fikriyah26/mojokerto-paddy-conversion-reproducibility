@@ -55,3 +55,19 @@ Pernyataan sebelumnya mengenai belum tersedianya perhitungan ulang T50 dan T70 m
 Hasil ini **belum** berarti seluruh proses klasifikasi Dynamic World tahap awal, validasi historis Stage 5, parameter produksi, hasil moneter, dan uji spasial telah direproduksi secara independen.
 
 Tahap analisis berikutnya adalah menguji ulang rumus dan koefisien intensitas tanam per desa untuk kapasitas produksi padi yang tidak lagi dihasilkan dan ekuivalen nilai output kotor. Perhitungan sensitivitas T50 memerlukan perhatian khusus karena jumlah unit positif lebih banyak dibandingkan spesifikasi T60. Koefisien yang tidak tersedia tidak boleh diimputasi semata-mata agar hasil sesuai angka manuskrip.
+
+
+## Status tambahan setelah verifikasi ekonomi Stage 9, 4 November 2026
+
+Reproduksi angka ekonomi dari hasil konversi Stage 8 telah dilakukan pada tingkat 304 unit. Model menggunakan 230 koefisien historis T60, 31 koefisien sementara T50-only yang diturunkan dari data BPS intensitas tanam desa tahun 2024, dan 43 unit tanpa konversi. Dua koefisien sementara dibatasi pada tiga siklus mengikuti aturan model.
+
+Hasil yang direproduksi dalam toleransi numerik:
+- T50: 3.144,451679 ton beras per tahun dan Rp40,830 miliar ekuivalen output kotor per tahun.
+- T60: 1.628,678279 ton beras per tahun dan Rp21,148 miliar per tahun.
+- T70: 429,833910 ton beras per tahun dan Rp5,581 miliar per tahun.
+
+Hasil T60 dan sensitivitas T50 serta T70 sudah cocok dengan arsip, tetapi tingkat presisi penuh harga beras Rp12.984,88809/kg adalah parameter manuskrip yang belum dapat direkonstruksi secara mandiri dari harga bulanan BPS yang dibulatkan. Hasil ekonomi bukan kehilangan produksi aktual atau pendapatan bersih petani.
+
+Bukti: `docs/STAGE9_RICE_CAPACITY_AND_GROSS_OUTPUT_FRESH_GEE_VERIFICATION_2026-11-04.md`, `qa_outputs/Mojokerto_Stage9_FreshGEE_304_Unit_Rice_Economics_2026-11-04.csv`.
+
+**Prioritas berikutnya:** pengujian ulang Moran's I global dan LISA lokal, termasuk perbedaan indikator luas konversi, produksi per tahun, produksi per hektare, koreksi FDR, dan 12 kandidat lokasi eksploratif. Data pembobot spasial Queen serta 8 nearest neighbours harus berasal dari arsip yang benar sebelum menghitung hasil baru.
