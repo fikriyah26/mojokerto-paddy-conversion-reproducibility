@@ -38,8 +38,10 @@ EXPECTED_MULTIPART = {
 
 
 def read_area(value, where):
+    if value is None or not str(value).strip():
+        raise ValueError(f"{where}: BLANK area field in GEE export. Cannot interpret missing values as zero")
     try:
-        result = Decimal((value or "").strip() or "0")
+        result = Decimal(str(value).strip())
     except InvalidOperation as exc:
         raise ValueError(f"{where}: invalid numeric area {value!r}") from exc
     if not result.is_finite() or result < 0:
