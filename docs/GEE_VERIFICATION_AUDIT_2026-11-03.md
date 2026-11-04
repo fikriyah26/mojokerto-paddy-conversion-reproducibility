@@ -260,3 +260,16 @@ The author completed 17 additional `WeightedCorrected` GEE district exports foll
 See [the final 304-unit verification report](STAGE7_304_VILLAGES_FRESH_GEE_WEIGHTED_PASS_2026-11-04.md), [raw source 308 polygon rows with per-file Drive IDs](../qa_outputs/Mojokerto_Stage7_WeightedCorrected_All308_Parts_2026-11-04.csv), and [304-unit per-village comparison](../qa_outputs/Mojokerto_Stage7_WeightedCorrected_304_Unit_Comparison_2026-11-04.csv).
 
 **Scope limitation:** This is not a claim of independently replayed Stage 1–3 Dynamic World classification, Stage 5 field-validation work, or separate T50/T70 raster processing. It establishes exact numerical agreement of the T60 area outputs from a preserved historical source raster and administrative geometry.
+
+
+## Stage 8 sensitivity T50 and T70: pilot prepared, results not yet run (4 November 2026)
+
+Following the successful fresh original-raster T60 verification (304 of 304 units), the next test is to reconstruct the T50 and T70 threshold masks from the original GEE Stage 3 asset on the verified EPSG:3857 locked T60 grid. The original Stage 7 sensitivity table contains T50 = **610.9156963323798 ha** in **261** positive administrative units, and T70 = **89.0284436968486 ha** in **128** positive units. The original T60 reference is **323.33406072288363 ha** in **230** units. These sensitivity figures are **historical references**, not yet freshly reproduced.
+
+A new GEE script `gee/09_stage7_T50_T70_locked_grid_sensitivity_BATCH.js` computes candidate 5-pixel eight-connected masks for all three Stage 3 thresholds on the locked native grid before patch filtering, retains each positive mask via `updateMask`, and computes weighted pixel-area sums with four multiband outputs. The outputs are T50, rebuilt T60, original locked T60 control and T70. The script creates only derived Drive CSV Tasks and never overwrites GEE source assets.
+
+The script is initially configured to export **one pilot district**, Kecamatan Kutorejo, for which the historical 17-unit weighted-area references are: T50 **55.51071220490999 ha** (17 positive units), T60 **27.63093313694076 ha** (16 positive), T70 **5.867751710013591 ha** (10 positive). The pilot must match every historical per-village value within 0.000001 ha. Only upon passing should the other 17 districts be processed.
+
+The Python script `tools/check_stage8_threshold_sensitivity_exports.py` checks pilot and complete exports against the historic 304-unit CSV, including all area values, threshold monotonicity, source T60 control, raw null flags, multipart keys, and positive counts. See [registered Stage 8 protocol](STAGE8_T50_T70_SENSITIVITY_VERIFICATION_PLAN_2026-11-04.md).
+
+**Status: Stage 8 GEE pilot is READY TO RUN, not completed.** Historical T50 and T70 raster identity is not established by the existence of the Stage 3 source asset or by the passed T60 check alone.
