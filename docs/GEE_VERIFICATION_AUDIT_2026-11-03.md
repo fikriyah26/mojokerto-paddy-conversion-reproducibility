@@ -183,3 +183,19 @@ The original locked Stage 6 T60 IMAGE is now the source of a newly prepared, une
 Acceptance thresholds: 308 source parts, 304 unique units, 18 districts, exactly 230 positive T60 units, total area matching historical 323.33406072288363 ha within 0.000001 ha, and every per-unit area matching within 0.000001 ha. The Python verifier is `tools/check_stage6_village_weighted_exports.py`. See [registered next verification procedure](STAGE6_304_VILLAGE_WEIGHTED_RERUN_PLAN_2026-11-04.md).
 
 **No fresh administrative area results have been claimed yet.** The completed 18-district zero-pixel-mismatch result is a separate unweighted pixel-centre comparison, not a substitute for this weighted zonal rerun.
+
+
+## Stage 7 weighted village-area exports: blank-column failure, 4 November 2026
+
+The author completed the 18 `Mojokerto_Stage6_VillageWeighted_XX` GEE CSV exports from the original locked Stage 6 image. All 18 CSVs were fetched from the connected `Mojokerto_GEE_Research` folder.
+
+- Administrative coverage passed: **308** polygon parts, **304** unique district-village keys, all **18** districts, four expected multipart units.
+- Numeric content failed: **all 308 values in `area_T60_ha` were blank**.
+- Thus these exports provide **no** fresh area totals and cannot verify the 230 positive units. Blank cells must not be treated as zero.
+- The original `gee/07_stage6_locked_304_village_weighted_BATCH.js` wrote the field by accessing `f.get('area_T60_ha')` after a single-band `reduceRegions` operation. Whether the reducer returned the value under that property or another property is not yet verified.
+- The audit and source CSV observations are detailed in [Stage 7 null-field QC](STAGE7_WEIGHTED_EXPORT_NULL_FIELD_QC_2026-11-04.md).
+- A read-only single-village property diagnostic has been prepared: `gee/07a_diagnose_weighted_reducer_output_READ_ONLY.js`.
+- A corrective **one-district** test is prepared: `gee/07b_test_weighted_Kutorejo_DIRECT_REDUCE.js`, which uses individual `reduceRegion` calls to obtain the named area property explicitly. Known positive reference: Kecamatan Kutorejo / Pesanggrahan, **7.383299456212667 ha**.
+- The local CSV comparison checker was updated to reject blank numeric fields. No GEE re-export success has been claimed.
+
+The previously verified 18-district pixel-centre raster agreement and archived 304-unit/230-positive historical statistics remain intact and must be distinguished from this unsuccessful fresh weighted rerun.
