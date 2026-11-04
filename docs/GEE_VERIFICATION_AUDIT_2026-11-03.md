@@ -152,3 +152,25 @@ The connected Google Drive folder `Mojokerto_GEE_Research` contains the complete
 The separate earlier EPSG:32749 batch result of 323.5819606929078 ha is not a proof of irrecoverable historical source disagreement. The candidate's grid alignment is now a plausible explanation for its differences, but all 18 districts remain to be verified. The next staged script is `gee/06_stage6_locked_grid_18_district_BATCH.js` with three district exports per run. See [Kutorejo pixel QC report](STAGE6_LOCKED_GRID_KUTOREJO_QC_2026-11-04.md) and the unchanged source CSV in `qa_outputs`.
 
 The author's original locked Stage 6 raster, native CRS and affine are now verified, so there is no need to re-ingest the locked TIFF into GEE. **Global pixel identity and the complete historical Stage 1–6 workflow remain unverified.**
+
+
+## Update, 4 November 2026: all 18 district grid-comparison batches complete
+
+The author shared the connected Drive folder with all 18 completed `Mojokerto_Stage6_GridQC_XX` CSVs. Each was fetched and independently parsed.
+
+- Districts checked: **18 of 18**
+- Source administrative polygon parts: **308** covering the previously verified 304 distinct district-village keys
+- Locked Stage 6 positive pixel centres within administrative district geometries: **33,113**
+- Reconstructed Stage 3 positive pixel centres on identical grid: **33,113**
+- Mismatched pixels: **0 in every district**
+- Locked-only positive pixels: **0 in every district**
+- Rebuilt-only positive pixels: **0 in every district**
+- Pixel-centre geodesic area of either raster within all district geometries: **323.3343551699072 ha**
+- CRS: **EPSG:3857**, transform `[10,0,12504720,0,-10,-815190]`
+- Min. retained patch pixels: **5**, eight-connectivity **true**
+
+The independent archived 304-village Stage 7 table was re-read. It records **304 unique villages, 230 positive T60 units, 18 districts and a 323.3340607228835 ha area-weighted total**. The small difference from the pixel-centre total is attributable to distinct boundary-pixel treatment. The two totals are not interchangeable.
+
+**Stage 6 pixel-centre agreement on the entire tested 18-district administrative domain: PASS.** This does not verify every pixel outside those boundaries or end-to-end Stage 1 to Stage 5 source reconstruction. The evidence also strengthens the hypothesis that grid alignment contributed to the earlier +0.24789997 ha difference, although it does not isolate which grid-dependent operation was responsible.
+
+See the full [18-district audit report](STAGE6_LOCKED_GRID_18_DISTRICTS_QC_2026-11-04.md) and [numeric summary with raw CSV source links](../qa_outputs/Mojokerto_Stage6_GridQC_18_District_Summary_2026-11-04.csv).
