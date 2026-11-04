@@ -174,3 +174,12 @@ The independent archived 304-village Stage 7 table was re-read. It records **304
 **Stage 6 pixel-centre agreement on the entire tested 18-district administrative domain: PASS.** This does not verify every pixel outside those boundaries or end-to-end Stage 1 to Stage 5 source reconstruction. The evidence also strengthens the hypothesis that grid alignment contributed to the earlier +0.24789997 ha difference, although it does not isolate which grid-dependent operation was responsible.
 
 See the full [18-district audit report](STAGE6_LOCKED_GRID_18_DISTRICTS_QC_2026-11-04.md) and [numeric summary with raw CSV source links](../qa_outputs/Mojokerto_Stage6_GridQC_18_District_Summary_2026-11-04.csv).
+
+
+## Next Stage 7 verification registered, 4 November 2026
+
+The original locked Stage 6 T60 IMAGE is now the source of a newly prepared, unexecuted 18-district weighted zonal rerun using `gee/07_stage6_locked_304_village_weighted_BATCH.js`. The workflow avoids the Stage 6 raster recomputation and instead calls `ee.Reducer.sum()` on masked `ee.Image.pixelArea()/10000`, at the locked source image's native projection, for each of the 308 source polygon pieces. It exports one district CSV per batch Task. The four multipart villages will be merged OFFLINE into 304 keys and compared against `data_derived/Stage7_304_Units_From_18_District_Exports.csv`.
+
+Acceptance thresholds: 308 source parts, 304 unique units, 18 districts, exactly 230 positive T60 units, total area matching historical 323.33406072288363 ha within 0.000001 ha, and every per-unit area matching within 0.000001 ha. The Python verifier is `tools/check_stage6_village_weighted_exports.py`. See [registered next verification procedure](STAGE6_304_VILLAGE_WEIGHTED_RERUN_PLAN_2026-11-04.md).
+
+**No fresh administrative area results have been claimed yet.** The completed 18-district zero-pixel-mismatch result is a separate unweighted pixel-centre comparison, not a substitute for this weighted zonal rerun.
