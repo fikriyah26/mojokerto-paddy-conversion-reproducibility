@@ -1,10 +1,10 @@
 /*
 Experimental pixel-grid comparison, original locked Stage 6 vs Stage 3 T60.
-Requires verified locked Stage 6 IMAGE asset and imported table.
+Uses verified historical Stage 6 IMAGE asset and imported table.
 Source rasters are never altered. One district batch CSV.
 */
 var STAGE3_ASSET = 'users/fikriiyah26/Mojokerto_Stage3_ConversionMask'
-var LOCKED_STAGE6_ASSET = '' // Fill after finding historical IMAGE or private TIFF import
+var LOCKED_STAGE6_ASSET = 'projects/earthengine-legacy/assets/users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1'
 var DISTRICT = 'Kecamatan Kutorejo'
 var GRID_CRS = 'EPSG:3857'
 var GRID = [10, 0, 12504720, 0, -10, -815190]
@@ -21,6 +21,9 @@ if (!LOCKED_STAGE6_ASSET) {
   print('Reference asset', LOCKED_STAGE6_ASSET)
   print('Imported image projection', lockedImage.projection())
   print('Imported image affine', lockedImage.projection().transform())
+  print('Imported image CRS', lockedImage.projection().crs())
+  print('Expected original Stage 6 band', 'final_conv')
+  print('Actual bands', ee.Image(LOCKED_STAGE6_ASSET).bandNames())
   print('Expected archival grid', GRID_CRS, GRID)
   print('If affine differs, do NOT claim pixel-level identity.')
 
@@ -31,7 +34,10 @@ if (!LOCKED_STAGE6_ASSET) {
 
   // Original Stage 3 grid was EPSG:4326. Force candidate onto locked grid first.
   // This is a deliberate sensitivity test, NOT a historical replay.
-  var lockedGrid = ee.Projection(GRID_CRS, GRID)
+  var lockedGrid = lockedImage.projection()
+  // Reproject candidate onto original GEE Stage 6 grid before filtering.
+  // The archive TIFF and original asset have matching affine transforms.
+  // Check that the printed CRS is EPSG:3857 before accepting the results.
   var locked = lockedImage.gt(0).unmask(0).toByte()
     .reproject({crs: lockedGrid})
   var candidate = ee.Image(STAGE3_ASSET).select('conv_T60')
@@ -68,6 +74,7 @@ if (!LOCKED_STAGE6_ASSET) {
     stage3_asset: STAGE3_ASSET,
     locked_asset: LOCKED_STAGE6_ASSET,
     test_type: 'regrid_candidate_before_patch_filter',
+    expected_locked_band: 'final_conv',
     min_patch_pixels: MIN_PATCH,
     max_connected_pixels: PATCH_MAXSIZE,
     eight_connected: 1,
