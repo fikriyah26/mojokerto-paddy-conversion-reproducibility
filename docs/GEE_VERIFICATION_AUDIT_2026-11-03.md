@@ -286,3 +286,26 @@ All **17 of 17 village-level values** match reference within the preregistered *
 The full author-run pilot file and 17-unit comparison have been archived in `qa_outputs`. See the [Stage 8 pilot report](STAGE8_T50_T70_KUTOREJO_PILOT_PASS_2026-11-04.md).
 
 **Current status:** T50/T70 sensitivity pilot PASS, but the full 304-unit T50/T70 rerun is not yet verified. Next action is to run the remaining 17 district CSV exports in six batches. The script automatically skips the already validated Kecamatan Kutorejo pilot in full batches and does not write Earth Engine assets.
+
+
+## Stage 8 full 304-unit T50 and T70 sensitivity verification: PASS (4 November 2026)
+
+After the successful Kecamatan Kutorejo pilot, the author ran the remaining 17 district GEE batches using `gee/10_stage8_T50_T70_remaining_17_district_BATCH.js`, and all 18 files were read from the connected Google Drive folder.
+
+- 18 complete district CSVs, 308 polygon parts, 304 distinct district-village keys
+- Four historical multipart keys grouped correctly
+- No area nulls, missing flags, negative values or unknown administrative keys
+- Reconstructed T60 equals original locked T60 for every part and unit
+- Each of the 304 unit areas matches archived T50, T60 and T70 within the registered 0.000001 ha tolerance
+- Positive unit counts T50 **261**, T60 **230**, T70 **128**, all consistent with historical Stage 7
+- Fresh GEE T50 area **610.9156962921805 ha**, archive **610.9156963323795 ha**
+- Fresh GEE T60 original locked control area **323.33406086654634 ha**, archive **323.3340607228835 ha**
+- Fresh GEE T70 area **89.02844375957753 ha**, archive **89.02844369684854 ha**
+- Maximum absolute unit differences T50 **7.270535284931157e-8 ha**, T60 **5.667411384635557e-8 ha**, T70 **3.751664934270593e-8 ha**
+- Threshold area ordering T50 >= T60 >= T70 verified for all 304 units
+
+**Status upgraded:** T50/T70 Stage 8 sensitivity weighted administrative area rerun PASS across all 304 units. This supersedes the earlier *pilot only / remaining districts pending* entries and is backed by a fresh GEE run, not merely archival reconciliation.
+
+See [full Stage 8 sensitivity PASS report](STAGE8_T50_T70_304_VILLAGES_FRESH_GEE_PASS_2026-11-04.md), [308 raw derived source rows with Drive source IDs](../qa_outputs/Mojokerto_Stage8_ThresholdGrid_All308_Parts_2026-11-04.csv) and [304 unit-level comparisons](../qa_outputs/Mojokerto_Stage8_ThresholdGrid_304_Unit_Comparison_2026-11-04.csv).
+
+**Remaining limitations:** No independently preserved historical final T50/T70 IMAGE asset was found for pixel-by-pixel equality testing. Initial Stage 1–3 Dynamic World classification, Stage 5 validation and productivity/economic/spatial calculations still require separate reproductions.
