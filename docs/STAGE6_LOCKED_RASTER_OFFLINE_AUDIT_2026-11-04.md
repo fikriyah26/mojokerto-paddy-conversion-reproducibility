@@ -65,3 +65,7 @@ This GEE result matches the earlier reviewer-folder T60 total at floating point 
 **Raster identity of reconstructed vs historical Stage 6: NOT VERIFIED.**
 
 Private GitHub archival status is not equivalent to public reproducibility or a published DOI.
+
+## Spatial aggregation caution
+
+An additional comparison of the offline pixel-centre totals with the locked Stage 7 area totals by district found maximum absolute district difference approximately 0.0136844 ha in Kecamatan Dawarblandong. The second-largest was approximately 0.0112978 ha in Kecamatan Puri. Differences can compensate across districts, leaving the kabupaten-wide difference only 0.0002943 ha. This demonstrates why a close regional aggregate is supportive but does not establish individual-pixel or individual-district identity.
