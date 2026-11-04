@@ -77,3 +77,12 @@ Official Earth Engine method references:
 - https://developers.google.com/earth-engine/apidocs/ee-image-connectedpixelcount
 - https://developers.google.com/earth-engine/apidocs/ee-image-reduceregions
 - https://developers.google.com/earth-engine/guides/reducers_weighting
+
+
+## Pilot result and full-run handoff (4 November 2026)
+
+The author-run Kecamatan Kutorejo pilot **PASSED all 17 village-level T50/T60/T70 comparisons** at the preregistered 0.000001 ha absolute tolerance, including exact rebuilt-versus-original locked T60 control at village level. See [pilot PASS report](STAGE8_T50_T70_KUTOREJO_PILOT_PASS_2026-11-04.md).
+
+To avoid editing pilot settings repeatedly, the continuation script is `gee/10_stage8_T50_T70_remaining_17_district_BATCH.js`. It begins with `BATCH_START=0` and `BATCH_COUNT=3` and automatically skips the validated Kecamatan Kutorejo when processing the group containing index 8. Run starts 0, 3, 6, 9, 12 and 15, starting all generated Drive export Tasks for each batch. This yields 17 additional CSV files plus the existing `Mojokerto_Stage8_ThresholdGrid_09_Kutorejo.csv`.
+
+The full 18-district sensitivity result remains **pending**. Do not label the archived totals as newly reproduced outside the tested pilot until the new exports have been read and every district-village key passes.
