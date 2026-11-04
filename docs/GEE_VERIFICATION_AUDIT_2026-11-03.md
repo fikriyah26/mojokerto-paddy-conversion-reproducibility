@@ -227,3 +227,14 @@ The initial batch export's 308 blank area values came from an incorrect assumed 
 A corrected script `gee/07d_stage7_weighted_corrected_18_district_BATCH.js` is registered and configured for a **single-district** test first, using retained masks, weighted `reduceRegions`, and the empirically verified `sum` property. The obsolete `gee/07_stage6_locked_304_village_weighted_BATCH.js` was marked deprecated. Updated `tools/check_stage6_village_weighted_exports.py` checks the corrected filename prefix, rejects blank areas and compares the complete 304 keys, positive-unit count and per-unit values to the historical archive.
 
 **The full corrected 18-district zonal rerun has not yet been performed.** Do not claim fresh verification of 230 positive units until corrected outputs exist.
+
+
+## Stage 7 corrected native-grid weighted areas, Kecamatan Kutorejo: PASS (4 November 2026)
+
+The corrected author-run GEE task `Mojokerto_Stage7_WeightedCorrected_09_Kutorejo` was completed and its CSV fetched from https://drive.google.com/file/d/1O2JmoMWbgOcnm9rkB4h7nuyRqrDmzQ5d/view. This rerun retains `updateMask` on the original Stage 6 locked raster and reads the single-band reducer property `sum`.
+
+For the 17 original polygon features in Kecamatan Kutorejo, all 17 fields contain numeric areas, `raw_sum_missing` is 0 throughout, and all 17 values match the corresponding archived Stage 7 records within the preregistered 0.000001 ha tolerance. There are 16 positive-conversion villages. The fresh and archived weighted district sums are both **27.63093313694076 ha**. Maximum absolute unit-level difference: **4.440892098500626e-16 ha**.
+
+The unchanged exported CSV is in `qa_outputs/Mojokerto_Stage7_WeightedCorrected_09_Kutorejo_2026-11-04.csv`. See [full Kutorejo verification](STAGE7_CORRECTED_KUTOREJO_PASS_2026-11-04.md).
+
+The next script `gee/07e_stage7_weighted_corrected_remaining_17_districts_BATCH.js` processes the remaining 17 districts in six batch runs, automatically skipping the verified Kecamatan Kutorejo export. Global fresh Stage 7 304-unit weighted-area reproduction and 230-positive-unit count remain **pending** until those new district CSVs have been checked.
