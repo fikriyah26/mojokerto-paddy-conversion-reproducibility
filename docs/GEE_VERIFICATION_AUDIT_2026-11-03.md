@@ -238,3 +238,25 @@ For the 17 original polygon features in Kecamatan Kutorejo, all 17 fields contai
 The unchanged exported CSV is in `qa_outputs/Mojokerto_Stage7_WeightedCorrected_09_Kutorejo_2026-11-04.csv`. See [full Kutorejo verification](STAGE7_CORRECTED_KUTOREJO_PASS_2026-11-04.md).
 
 The next script `gee/07e_stage7_weighted_corrected_remaining_17_districts_BATCH.js` processes the remaining 17 districts in six batch runs, automatically skipping the verified Kecamatan Kutorejo export. Global fresh Stage 7 304-unit weighted-area reproduction and 230-positive-unit count remain **pending** until those new district CSVs have been checked.
+
+
+## Final Stage 7 T60 verification: all 304 units PASS (4 November 2026)
+
+The author completed 17 additional `WeightedCorrected` GEE district exports following the previously successful Kecamatan Kutorejo test, and the connected Drive folder now contains **18 uniquely numbered corrected CSVs**. All were read and independently compared to the archived 304-unit T60 Stage 7 table.
+
+**Source assets and method:** Original `users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1`, band `final_conv`, native EPSG:3857 grid. Corrected weighted zonal method retains the positive conversion mask using `updateMask`, uses `ee.Reducer.sum()`, and reads the single-band GEE reducer output property `sum`.
+
+**Results:**
+- Original polygons **308** across **18** districts, merged into **304** unique `KECAMATAN + DESAKEL` units
+- Exactly **230** units with positive area, identical to historical
+- No blank areas, no negative values, no nonzero `raw_sum_missing` flags
+- All four historic multipart villages grouped correctly
+- **304 of 304** unit-area values match the original archived values at an absolute tolerance of **0.000001 ha**
+- Maximum absolute unit-level difference **3.552713678800501e-15 ha**
+- Fresh total **323.3340607228835 ha**, historical archived total **323.3340607228835 ha**, locked manuscript reference **323.33406072288363 ha**
+
+**Status upgraded:** Full fresh, original-raster-to-Stage-7 **T60 304-unit weighted-area reproduction PASS**. This supersedes the *pending* statements from earlier, dated audit sections, which are retained to show the sequence of debugging and tests.
+
+See [the final 304-unit verification report](STAGE7_304_VILLAGES_FRESH_GEE_WEIGHTED_PASS_2026-11-04.md), [raw source 308 polygon rows with per-file Drive IDs](../qa_outputs/Mojokerto_Stage7_WeightedCorrected_All308_Parts_2026-11-04.csv), and [304-unit per-village comparison](../qa_outputs/Mojokerto_Stage7_WeightedCorrected_304_Unit_Comparison_2026-11-04.csv).
+
+**Scope limitation:** This is not a claim of independently replayed Stage 1–3 Dynamic World classification, Stage 5 field-validation work, or separate T50/T70 raster processing. It establishes exact numerical agreement of the T60 area outputs from a preserved historical source raster and administrative geometry.
