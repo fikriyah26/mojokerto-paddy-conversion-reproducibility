@@ -1,0 +1,4 @@
+indicator,N,nominal_p_below_0_05,FDR_q_le_0_05,HH_significant_FDR,source
+PROD,304,70,0,0,Original_QGIS_local_p_999_perm
+CONV,304,55,0,0,Original_QGIS_local_p_999_perm
+INT,230,110,70,27,Original_QGIS_local_p_999_perm
