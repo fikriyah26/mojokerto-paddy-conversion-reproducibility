@@ -142,3 +142,13 @@ The author discovered an accessible `IMAGE` under the original legacy root `user
 This matches the archived final GeoTIFF affine. The output did not expand the projection CRS, so the script will explicitly print `projection().crs()` before grid comparison. The previously guessed asset names were incorrect, rather than proof of missing historical Stage 6 data.
 
 The corrected `gee/05_stage6_locked_grid_district_BATCH.js` uses the original GEE locked raster directly and creates one CSV task for Kecamatan Kutorejo. The comparison tests source masks and grid influence and does not modify either research image. Exact pixel identity of the GEE locked image with the Drive GeoTIFF and the origin of the reconstructed 0.24789997 ha difference are still awaiting evidence.
+
+## Update, 4 November 2026: zero pixel disagreement in Kecamatan Kutorejo
+
+The connected Google Drive folder `Mojokerto_GEE_Research` contains the completed CSV `Mojokerto_Stage6_Grid_QC_Kutorejo.csv`. The user-run GEE task compared the genuine historical image `users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1` against `conv_T60` from the original Stage 3 mask, reprojected onto the actual EPSG:3857 locked grid before applying the five-pixel eight-connected filter.
+
+**Result for Kecamatan Kutorejo:** 2,830 historical pixels, 2,830 rebuilt pixels, zero mismatched pixel centres, zero historical-only or rebuilt-only pixels, and exactly equal GEE area of 27.630283154547215 ha for both masks. This provides direct, successful one-district grid-aligned pixel reproducibility.
+
+The separate earlier EPSG:32749 batch result of 323.5819606929078 ha is not a proof of irrecoverable historical source disagreement. The candidate's grid alignment is now a plausible explanation for its differences, but all 18 districts remain to be verified. The next staged script is `gee/06_stage6_locked_grid_18_district_BATCH.js` with three district exports per run. See [Kutorejo pixel QC report](STAGE6_LOCKED_GRID_KUTOREJO_QC_2026-11-04.md) and the unchanged source CSV in `qa_outputs`.
+
+The author's original locked Stage 6 raster, native CRS and affine are now verified, so there is no need to re-ingest the locked TIFF into GEE. **Global pixel identity and the complete historical Stage 1–6 workflow remain unverified.**
