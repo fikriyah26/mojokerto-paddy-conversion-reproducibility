@@ -14,6 +14,8 @@ This repository draws on archived analytical outputs. The Google Earth Engine St
 
 **Fresh Stage 7 T60 administrative-area verification, 4 November 2026:** All 18 district exports from the preserved, original locked Stage 6 GEE IMAGE have been reproduced using the corrected native-grid weighted reducer. The 308 source polygon parts merge to 304 unique administrative units, **all 304 unit areas agree** with the historical T60 archive within 0.000001 ha, **230 positive units** match, and the total is **323.3340607228835 ha**, consistent with the historical locked 323.33406072288363 ha. See the [full original-raster-to-Stage-7 PASS report](docs/STAGE7_304_VILLAGES_FRESH_GEE_WEIGHTED_PASS_2026-11-04.md). This result does not demonstrate an independent end-to-end rerun of Stage 1–3 classification or Stage 5 validation.
 
+**Fresh Stage 8 T50 and T70 sensitivity verification, 4 November 2026:** The author completed all 18 GEE threshold exports on the verified locked Stage 6 grid. All 304 administrative unit areas match the archived T50, T60 and T70 values within 0.000001 ha each. The respective positive-unit counts are **261, 230 and 128**, and the fresh weighted totals are **610.9156962921805 ha**, **323.33406086654634 ha** and **89.02844375957753 ha**. The independently reconstructed T60 and the original locked T60 agree for all 304 units. See [full Stage 8 PASS report](docs/STAGE8_T50_T70_304_VILLAGES_FRESH_GEE_PASS_2026-11-04.md). This does not establish pixel identity to separately preserved final T50/T70 rasters or independently reproduce the upstream classification and validation steps.
+
 ## Reproducibility files
 
 - `gee/`: reconstructed Stage 1–6 code and separately identified Stage 7 / independent sampling additions.
