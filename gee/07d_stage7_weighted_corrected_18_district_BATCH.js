@@ -47,7 +47,13 @@ var DISTRICTS = [
 if (typeof table === 'undefined') {
   throw new Error('Import the original 308-polygon boundaries as table')
 }
-if (!Number.isInteger(BATCH_START) || !Number.isInteger(BATCH_COUNT) ||
+// GEE Code Editor can use an older JavaScript runtime without Number.isInteger.
+function isWholeNumber(value) {
+  return typeof value === 'number' &&
+    isFinite(value) &&
+    value % 1 === 0
+}
+if (!isWholeNumber(BATCH_START) || !isWholeNumber(BATCH_COUNT) ||
     BATCH_START < 0 || BATCH_COUNT < 1 ||
     BATCH_START + BATCH_COUNT > DISTRICTS.length) {
   throw new Error('Invalid BATCH_START or BATCH_COUNT')
