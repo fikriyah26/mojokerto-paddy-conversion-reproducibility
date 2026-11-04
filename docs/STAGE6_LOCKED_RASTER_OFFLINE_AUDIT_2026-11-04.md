@@ -69,3 +69,20 @@ Private GitHub archival status is not equivalent to public reproducibility or a 
 ## Spatial aggregation caution
 
 An additional comparison of the offline pixel-centre totals with the locked Stage 7 area totals by district found maximum absolute district difference approximately 0.0136844 ha in Kecamatan Dawarblandong. The second-largest was approximately 0.0112978 ha in Kecamatan Puri. Differences can compensate across districts, leaving the kabupaten-wide difference only 0.0002943 ha. This demonstrates why a close regional aggregate is supportive but does not establish individual-pixel or individual-district identity.
+
+
+## Discovery of the original locked GEE IMAGE (author Console, 4 November 2026)
+
+**The original locked Stage 6 raster was located in the author's historical GEE legacy namespace.** It is not necessary to ingest a duplicate TIFF for the next comparison.
+
+- Full returned asset name: `projects/earthengine-legacy/assets/users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1`
+- Legacy alias: `users/fikriiyah26/Mojokerto_FINAL_LOCKED_T60_ge5px_v1`
+- Asset type: `IMAGE`
+- Band: `final_conv`
+- Author-reported affine: `[10, 0, 12504720, 0, -10, -815190]`
+
+The affine exactly matches the preserved GeoTIFF. The Code Editor displayed the projection as a collapsed `Projection` object, so the EPSG identifier must be printed explicitly and confirmed before claiming the original GEE image and TIFF are on the same CRS. Matching transforms and names do not by themselves establish pixel-for-pixel identity.
+
+The historical Stage 3 source remains `users/fikriiyah26/Mojokerto_Stage3_ConversionMask`, with seven bands and an EPSG:4326 native grid. Other legacy results matching the inventory search concern unrelated study regions and must not be used as Mojokerto Stage 6.
+
+**Next step:** run the corrected `gee/05_stage6_locked_grid_district_BATCH.js`, now preconfigured with the verified original locked image. It initially processes only Kecamatan Kutorejo and exports one read-only comparison CSV to Drive. It intentionally tests Stage 3 resampling onto the locked grid before five-pixel filtering and is not yet a verbatim replay of historical processing.
