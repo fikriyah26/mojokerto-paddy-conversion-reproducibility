@@ -12,6 +12,8 @@ This repository draws on archived analytical outputs. The Google Earth Engine St
 
 **Live historical Stage 6 raster QC:** 18 of 18 districts show no pixel-centre differences between the original locked Stage 6 image and a Stage 3 T60 five-pixel filtered reconstruction aligned to the original raster grid. See [18-district QC report](docs/STAGE6_LOCKED_GRID_18_DISTRICTS_QC_2026-11-04.md) and [summary table](qa_outputs/Mojokerto_Stage6_GridQC_18_District_Summary_2026-11-04.csv). This is not an end-to-end reproduction of the entire historical processing chain.
 
+**Fresh Stage 7 T60 administrative-area verification, 4 November 2026:** All 18 district exports from the preserved, original locked Stage 6 GEE IMAGE have been reproduced using the corrected native-grid weighted reducer. The 308 source polygon parts merge to 304 unique administrative units, **all 304 unit areas agree** with the historical T60 archive within 0.000001 ha, **230 positive units** match, and the total is **323.3340607228835 ha**, consistent with the historical locked 323.33406072288363 ha. See the [full original-raster-to-Stage-7 PASS report](docs/STAGE7_304_VILLAGES_FRESH_GEE_WEIGHTED_PASS_2026-11-04.md). This result does not demonstrate an independent end-to-end rerun of Stage 1–3 classification or Stage 5 validation.
+
 ## Reproducibility files
 
 - `gee/`: reconstructed Stage 1–6 code and separately identified Stage 7 / independent sampling additions.
