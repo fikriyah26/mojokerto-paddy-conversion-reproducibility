@@ -2,7 +2,7 @@
 
 **Release status:** private staging repository. Public release and external reproduction are not yet verified. These files document a study of potential paddy-to-built-up conversion, foregone annual rice-production capacity, and exploratory spatial screening in Mojokerto Regency, Indonesia.
 
-**Repository upload status (updated 4 November 2026):** All 18 district CSVs have been transferred from Google Drive and aggregated into 304 unique administrative units. The T60 aggregate matches the archived historical area to floating-point precision. A separate reviewer-folder export remains inconsistent and is retained for provenance, not treated as the principal estimate. Some secondary analytical archive files have not yet been uploaded. See `UPLOAD_STATUS.md` and `docs/STAGE7_DISTRICT_RECONCILIATION.md`. This repository remains Private and is not yet an independently reproduced historical Earth Engine run.
+**Repository upload status (updated 4 November 2026):** All 18 district CSVs have been transferred from Google Drive and aggregated into 304 unique administrative units. The T60 aggregate matches the archived historical area to floating-point precision. A separate reviewer-folder export remains inconsistent and is retained for provenance, not treated as the principal estimate. Some secondary analytical archive files have not yet been uploaded. See `UPLOAD_STATUS.md` and `docs/STAGE7_DISTRICT_RECONCILIATION.md`. This repository remains Private. Original-raster Stage 7 T60 outputs have now been freshly reproduced in GEE, but a complete end-to-end Stage 1–6 classification and validation rerun is still unverified.
 
 ## Evidence and scope
 
